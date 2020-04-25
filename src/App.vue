@@ -1,28 +1,31 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<template lang="html">
+  <div>
+    <select-category :categories="categories"></select-category>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import SelectCategory from './components/SelectCategory.vue'
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name:'app',
+  data(){
+    return{
+      categories: null,
+      selectedCategory: null,
+      score: 0
+    }
+  },
+  mounted(){
+    fetch("https://opentdb.com/api_category.php")
+    .then(result => result.json())
+    .then(categories => this.categories = categories.trivia_categories)
+  },
+  components:{
+    'select-category': SelectCategory
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="css" scoped>
 </style>
