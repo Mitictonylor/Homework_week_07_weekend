@@ -1,9 +1,9 @@
 <template lang="html">
   <div>
   <label for="categorys">SELECT CATEGORY</label>
-  <select  id="categorys" v-on:change="handleCategory" v-model="selectedCat">
+  <select  id="categorys" v-on:change="handleCategory" v-model="selectedCatId">
     <option disabled value="">Select a Category</option>
-    <option v-for="category in categories" :value="category" >{{category.name}}</option>
+    <option v-for="category in categories" :value="category.id" >{{category.name}}</option>
   </select>
   </div>
 </template>
@@ -14,13 +14,13 @@ export default {
   name:'SelectCategory',
   data(){
     return{
-      selectedCat:null
+      selectedCatId:null
 
   }},
   props:["categories"],
   methods:{
     handleCategory: function(){
-        eventBus.$emit('input', this.selectedCat)
+        eventBus.$emit('selected-category-id', this.selectedCatId)
       }
     }
   }
